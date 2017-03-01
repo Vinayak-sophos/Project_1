@@ -1,11 +1,19 @@
 <?php
+    
+    require("config.php");
+    
+    $conn = connect();
+    
     $text = file_get_contents($_GET["q"]);
     
     preg_match_all("/<h1 class=\"head-3 right-head\">([^<]+)/", $text, $match);
     $array["title"] = $match[1];
     
-    preg_match_all("/<span class=\"location-of-clg\">, ([^<]+)<\/span><\/h1>/", $text, $match);
-    $array["loc"] = $match[1];
+    preg_match_all("/<span class=\"location-of-clg\">, [^,]+,([^<]+)<\/span><\/h1>/", $text, $match);
+    $array["loc1"] = $match[1];
+    
+    preg_match_all("/<span class=\"location-of-clg\">, ([^,]+),[^<]+<\/span><\/h1>/", $text, $match);
+    $array["loc2"] = $match[1];
     
     preg_match_all("/Established ([0-9]+)/", $text, $match);
     $array["est"] = $match[1];
@@ -23,4 +31,8 @@
     
     preg_match_all("/<h5 class=\"tpl-course-name\"><[^>]+>([^<]+)<\/a><\/h5>/", $text, $match);
     $array["courses"] = $match[1];
+    
+    $sql = "INSERT INTO info (city_id, title, loc, est) VALUES ()";
+    mysqli_query($conn, $sql);
+    
 ?>
