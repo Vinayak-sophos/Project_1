@@ -1,9 +1,9 @@
 <?php
-	$text = file_get_contents("http://engineering.shiksha.com/be-btech-courses-in-chennai-2-ctpg");
-	preg_match_all('/<a class="institute-title-clr" href="([^"]+)"[^>]+>[^<]+<\/a>/', $text, $match);
+	$text = file_get_contents("http://www.shiksha.com/b-tech/colleges/b-tech-colleges-chennai");
+	preg_match_all('/<h2 class="tuple-clg-heading"><a href="([^?]+).+\n.+/', $text, $match);
 	for($i = 0; $i < count($match[1]); $i++){
 		$address = $match[1][$i];
-		print($address);
+		print($address); echo("<br>");
 ?>
 		<script>
 			var xhttp = new XMLHttpRequest();
@@ -16,9 +16,5 @@
 			xhttp.send();
 		</script>
 <?php
-		//print($text);
-		// Fetching title and Location
-		//preg_match_all("/<h1>\n?\s*\"([^\"]+)\"\n?\s*<span[^>]+>\n?\s*\"([^\"]+)\"\n?\s*<\/span>\n?\s*<\/h1>/", $text, $matches);
-		//print_r($matches);
 	}
 ?>
