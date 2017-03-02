@@ -16,7 +16,8 @@
     $array["loc2"] = $match[1];
     
     preg_match_all("/<span class=\"location-of-clg\">, ([^,]+),[^<]+<\/span><\/h1>/", $text, $match);
-    $array["loc2"][0] .= "<br>".$match[1][0];
+    if ($array["loc2"][0] && $match[1][0]) $array["loc2"][0] .= "<br>".$match[1][0];
+    else if ($match[1][0]) $array["loc2"][0] = $match[1][0];
     
     preg_match_all("/Established ([0-9]+)/", $text, $match);
     $array["est"] = $match[1];
@@ -41,16 +42,19 @@
 	$last_id = mysqli_insert_id($conn);
     
     foreach($array["infra"] as $inf){
+        if (!$inf) continue;
         $sql = "INSERT INTO infra (college_id, infra) VALUES(".$last_id.", '".$inf."')";
         mysqli_query($conn, $sql);
     }
     
     foreach($array["fac"] as $inf){
+        if (!$inf) continue;
         $sql = "INSERT INTO infra (college_id, infra) VALUES(".$last_id.", '".$inf."')";
         mysqli_query($conn, $sql);
     }
     
     foreach($array["courses"] as $inf){
+        if (!$inf) continue;
         $sql = "INSERT INTO courses (college_id, course) VALUES(".$last_id.", '".$inf."')";
         mysqli_query($conn, $sql);
     }
