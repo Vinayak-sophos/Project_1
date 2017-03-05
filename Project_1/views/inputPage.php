@@ -14,12 +14,23 @@
             <div class="form-group">
                 <div style="border:1px solid #990099;border-radius:3px" class="input-group">
                     <div class="input-group-addon">URL</div>
-                    <input type="text" name="loc" class="form-control" placeholder="Enter URL -- eg. http://www.shiksha.com/b-tech/colleges/b-tech-colleges-chennai">
+                    <input autofocus="autofocus" type="text" name="loc" class="form-control" placeholder="Enter URL -- eg. http://www.shiksha.com/b-tech/colleges/b-tech-colleges-chennai">
                 </div>
             </div>
             <div align="center">
-                <button title="Show all the college's information of the entered city" type="submit" class="btn btn-primary" onclick="gif_loader();">Submit</button>
+                <button title="Show all the college's information of the entered URL" type="submit" class="btn btn-primary" onclick="gif_loader(1);">Search By URL</button>
                 <button title="Empty all the Data retrieved yet" type="button" onclick="var ret=confirm('It will remove all the data stored yet, do you really want to continue'); if (ret) location.href='truncate.php';" class="btn btn-success">Truncate Data</button>
+            </div>
+        </form>
+        <form method="POST" action="searchCity.php" id="city">
+            <div class="form-group">
+                <div style="border:1px solid #990099;border-radius:3px" class="input-group">
+                    <div class="input-group-addon">CITY</div>
+                    <input type="text" name="city" class="form-control" placeholder="Enter City -- eg. Chennai">
+                </div>
+            </div>
+            <div align="center">
+                <button title="Show all the college's information of the entered city" type="button" class="btn btn-primary" onclick="gif_loader(0);">Search By City</button>
             </div>
         </form>
         </div>

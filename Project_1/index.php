@@ -4,12 +4,13 @@
     
     ?><link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <script>
-        function gif_loader(){
+        function gif_loader(i){
             document.body.style.opacity=0.4;
             document.getElementById('gif-loader').style.display='block';
             var inp = document.getElementsByTagName('button');
             Object.keys(inp).forEach(key => inp[key].disabled='disabled');
-            document.getElementById("url").submit();
+            if (i) document.getElementById("url").submit();
+            else document.getElementById("city").submit();
         }
     </script><?php
     
