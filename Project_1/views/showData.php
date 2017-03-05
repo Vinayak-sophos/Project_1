@@ -1,3 +1,4 @@
+<?php if (!isset($title)) { require_once("../config.php"); $title = $_GET["title"]; $id = $_GET["id"]; } ?>
 <html>
     <head>
         <title>
@@ -11,31 +12,29 @@
         <?php
             $sql = "SELECT * FROM info WHERE city_id=".$id;
             $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result)){
+                ?><blockquote class="blockquote-reverse text-muted">Showing <?php echo mysqli_num_rows($result); ?> Results</blockquote><?php
+            }
+            else{
+                echo("<h3>Please Refresh the Page</h3>");
+                exit;
+            }
             while($row = mysqli_fetch_assoc($result)){
         ?>
                 <div class="table-responsive" style="box-shadow: 0px 0px 10px #888888;">
                 <table class="table table-condensed table-hover table-striped table-bordered">
                     <tbody>
-                    <tr><th>College ID</th><td><?php echo $row["college_id"]; ?></td></tr>
-                    <tr><th>College Name</th><td><?php echo $row["title"]; ?></td></tr>
-                    <tr><th>College Address</th><td><?php echo $row["loc"]; ?></td></tr>
-                    <tr><th>Year of Establishment</th><td><?php echo $row["est"]; ?></td></tr>
-                    <tr><th>URL</th><td><?php echo $row["url"]; ?></td></tr>
+                    <tr><th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">College ID</th><td><?php echo $row["college_id"]; ?></td></tr>
+                    <tr><th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">College Name</th><td><?php echo $row["title"]; ?></td></tr>
+                    <tr><th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">College Address</th><td><?php echo $row["loc"]; ?></td></tr>
+                    <tr><th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Reviews</th><td><?php if ($row["review"]) echo $row["review"]; else echo "-"; ?></td></tr>
             <?php
-                $sql = "SELECT infra FROM infra WHERE college_id=".$row["college_id"];
+                $sql = "SELECT fac FROM fac WHERE college_id=".$row["college_id"];
                 $result2 = mysqli_query($conn, $sql);
                 $i = 0;
                 while($row2 = mysqli_fetch_assoc($result2)){
             ?>
-                    <tr><th><?php if ($i == 0){ $i = 1; echo "Infrastrucure and other Facilities"; } ?></th><td><?php echo $row2["infra"]; ?></td></tr>
-            <?php
-                }
-                $sql = "SELECT course FROM courses WHERE college_id=".$row["college_id"];
-                $result2 = mysqli_query($conn, $sql);
-                $i = 0;
-                while($row2 = mysqli_fetch_assoc($result2)){
-            ?>
-                    <tr><th><?php if ($i == 0){ $i = 1; echo "Major Courses Offered"; } ?></th><td><?php echo $row2["course"]; ?></td></tr>
+                    <tr><th class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><?php if ($i == 0){ $i = 1; echo "Facilities"; } ?></th><td><?php echo $row2["fac"]; ?></td></tr>
             <?php
                 }
             ?>
